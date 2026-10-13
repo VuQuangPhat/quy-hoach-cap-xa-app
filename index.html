@@ -412,6 +412,23 @@ table.legal-table tr:hover td,table.data-table tr:hover td { background:#EDF6FF;
 .brand-footer-name { color:#1D1D1F!important; }
 .brand-footer-desc { color:#6E6E73!important; }
 
+
+/* Enlarged author card */
+.author-card { gap:18px; padding:14px 24px 14px 16px; border-radius:22px; }
+.author-avatar { width:82px; height:82px; }
+.author-info { gap:5px; }
+.author-role { font-size:10.5px; letter-spacing:1px; }
+.author-name { font-size:20px; line-height:1.2; }
+.author-sub { font-size:15px; line-height:1.25; }
+.tab-bar { top:var(--page-header-height, 140px); }
+@media (max-width:700px) {
+  .author-card { width:100%; gap:15px; padding:12px 16px; }
+  .author-avatar { width:72px; height:72px; }
+  .author-role { font-size:9px; letter-spacing:.55px; }
+  .author-name { font-size:18px; }
+  .author-sub { font-size:14px; }
+  .tab-bar { top:0; }
+}
 </style>
 </head>
 <body>
@@ -1215,5 +1232,16 @@ else renderMarkdownForms();
 })();
 </script>
 
+<script>
+// Keep sticky tabs below the header when its height changes.
+(() => {
+  const header = document.querySelector('.page-header');
+  if (!header) return;
+  const update = () => document.documentElement.style.setProperty('--page-header-height', `${header.getBoundingClientRect().height}px`);
+  update();
+  if (window.ResizeObserver) new ResizeObserver(update).observe(header);
+  else window.addEventListener('resize', update);
+})();
+</script>
 </body>
 </html>
